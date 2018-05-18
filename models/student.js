@@ -7,8 +7,9 @@ module.exports = (sequelize, DataTypes) => {
     height: {
       type : DataTypes.INTEGER,
       validate : {
-        isTallEnough(height) {
-          if (height <= 150) throw new Error('Height must be above 150 cm');
+        min : {
+          args: 151,
+          msg: 'Height must be above 150 cm'
         }
       }
     },
@@ -16,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       validate: {
-        isEmail: true,
+        isEmail: {
+          args: true,
+          msg: 'Email is not valid'
+        },
         async isEmailUnique(email) {
           const students = await Student.findAll({ where : { email } });
           if (students.length > 0) throw new Error('Email has already been added');
