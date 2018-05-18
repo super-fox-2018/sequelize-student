@@ -1,0 +1,16 @@
+{
+  "name": "sequelize-instance-class-method",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^7.4.3",
+    "sequelize": "^4.37.7"
+  }
+}
