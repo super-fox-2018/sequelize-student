@@ -12,7 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
   };
   // class method
+  // Student.getAllStudents() = function() {
+  //   return Student.findAll();
+  // }
+
   Student.getFemaleStudent = function() {
+    // console.log(Student.findAll({ where: { gender: 'female' }}))
     return Student.findAll({ where: { gender: 'female' }});
   }
   
