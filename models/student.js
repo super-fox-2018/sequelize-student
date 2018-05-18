@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       validate : {
         min : {
           args: 151,
-          msg: 'Height must be above 150 cm'
+          msg: 'Validation error: Height must be above 150 cm'
         }
       }
     },
@@ -19,20 +19,27 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isEmail: {
           args: true,
-          msg: 'Email is not valid'
+          msg: 'Validation error: Email is not valid'
         },
         async isEmailUnique(email) {
           const students = await Student.findAll({ where : { email } });
-          if (students.length > 0) throw new Error('Email has already been added');
+          if (students.length > 0) throw new Error('Validation error: Email has already been added');
         }
       }
     },
     phone: {
       type: DataTypes.STRING,
       validate : {
+        isNumeric: {
+          args: true,
+          msg : 'Validation error: Phone not allow letters or alphanumeric'
+        },
         validatePhone(phone) {
-          const regex = /^(\+\d{2}|0)\d{9,12}$/;
-          if (!regex.test(phone)) throw new Error('Invalid phone number');
+          if (phone[0] === '+' && (phone.length < 12 || phone.length > 15)) {
+            throw new Error('Validation error: phone length must be 10 - 13');
+          } else if (phone[0] === '0' && (phone.length < 10 || phone.length > 15)) {
+            throw new Error('Validation error: phone length must be 10 - 13');
+          }
         }
       }
     }
