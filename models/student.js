@@ -47,5 +47,28 @@ module.exports = (sequelize, DataTypes) => {
   Student.associate = function(models) {
     // associations can be defined here
   };
+
+  Student.getFemaleStudent = function() {
+    return Student.findAll({ where : { gender : 'female' }})
+      .then(students => students.map(student => {
+        const full_name = student.getFullName();
+        Object.defineProperty(student, 'full_name', {
+          value : full_name
+        });
+        return student;
+      }));
+  }
+  
+  Student.prototype.getFullName = function () {
+    return `${this.first_name} ${this.last_name}`;
+  }
+  
+  Student.prototype.getAge = function () {
+    const now = new Date();
+    const ageDate = new Date(now - this.birthday);
+    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+    return age;
+  }
+  
   return Student;
 };

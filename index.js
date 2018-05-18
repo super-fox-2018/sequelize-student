@@ -15,7 +15,7 @@ Student.create({
   height: 151,
   birthday: '1975-07-07',
   email: 'mcqueenmail@mailer1.com',
-  phone: '+62777777777'
+  phone: '+6277777777777'
 }).then(result => {})
   .catch(err => console.log(err.errors[0].message))
   .then(() => process.exit());
