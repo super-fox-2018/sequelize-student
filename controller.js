@@ -32,8 +32,37 @@ class Controller{
 	   		})
 		})
 	}
-}
 
+	static addStudent(obj){
+		model.student.create({
+			first_name: obj.first_name,
+			last_name: obj.last_name,
+			gender: obj.gender,
+			birthday: obj.birthday,
+			email: obj.email,
+			phone: obj.phone,
+			height: obj.height,
+			createdAt: obj.createdAt,
+			updatedAt: obj.updatedAt
+		})
+		.catch(function(err) {
+			console.log('err',err.message)
+		})
+	}
+}
+let obj = {
+        first_name: 'Nikolas',
+        last_name: 'Friesen',
+        gender: 'female',
+        birthday: '1998-12-24',
+        email: 'agustina_brafw@afnwintheiser.info',
+        phone: '449.897.7415',
+        height: 120,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
 // Controller.getFullName()
 // Controller.getAge()
-Controller.getFemale()
+// Controller.getFemale()
+
+Controller.addStudent(obj)

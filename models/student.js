@@ -5,9 +5,43 @@ module.exports = (sequelize, DataTypes) => {
     last_name: DataTypes.STRING,
     gender: DataTypes.STRING,
     birthday: DataTypes.STRING,
-    email: DataTypes.STRING,
-    phone: DataTypes.STRING
-  }, {});
+    email: {
+      type: DataTypes.STRING, 
+      validate:{
+        isEmail:{
+          args:true,
+          msg:'email should includes @ and .'
+        },
+        isUnique: function(email,next) {
+          student.findOne({where:{email:email}})
+          .then((notAvailable)=>{
+            if(notAvailable == undefined){
+              next()
+            }
+          })
+        }
+      }
+    },
+    phone: {
+      type : DataTypes.STRING,
+      validate: {
+        len:{
+          args: [10,13],
+          msg: 'Phone must be 10-13 length'
+        }
+        //isNumeric: {args: true, message: 'Number must be numeric'}
+      }
+    }, 
+    height: {
+      type: DataTypes.INTEGER,
+      validate: {
+        min: {
+          args: 150,
+          msg: 'Tinggi harus lebih dari 150'
+        }
+      }
+    } 
+  }, {});                                                                                                                                                                                                                                                   
 
   //Instance method
   student.prototype.getFullName = function(){
